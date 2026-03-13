@@ -147,14 +147,28 @@ var PlotPane = (props) => {
             name: 'Download plot as PNG',
             icon: Plotly.Icons["camera-retro"],
             click: function() {
-              Plotly.downloadImage(plotlyRef.current, {format: 'png', filename: 'plot_' + contentID, scale: 1});
+              Plotly.downloadImage(
+                plotlyRef.current,
+                {
+                  format: 'png',
+                  filename: 'plot_' + contentID,
+                  scale: 1,
+                }
+              );
             }
           },
           {
             name: 'Download plot as SVG',
             icon: Plotly.Icons.camera,
             click: function() {
-              Plotly.downloadImage(plotlyRef.current, {format: 'svg', filename: 'plot_' + contentID, scale: 1});
+              Plotly.downloadImage(
+                plotlyRef.current,
+                {
+                  format: 'svg',
+                  filename: 'plot_' + contentID,
+                  scale: 1,
+                }
+              );
             }
           },
           {
