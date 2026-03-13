@@ -136,10 +136,47 @@ var PlotPane = (props) => {
     content.layout.datarevision = props.version;
 
     // draw / redraw plot with layout-options
-    Plotly.react(contentID, data.concat(smooth_data), content.layout, {
-      showLink: true,
-      linkText: 'Edit',
-    });
+    Plotly.react(
+      contentID,
+      data.concat(smooth_data),
+      content.layout,
+      {
+        modeBarButtonsToRemove: ['toImage'],
+        modeBarButtonsToAdd: [
+          {
+            name: 'Download plot as PNG',
+            icon: Plotly.Icons["camera-retro"],
+            click: function() {
+              Plotly.downloadImage(plotlyRef.current, {format: 'png', filename: 'plot_' + contentID, scale: 1});
+            }
+          },
+          {
+            name: 'Download plot as SVG',
+            icon: Plotly.Icons.camera,
+            click: function() {
+              Plotly.downloadImage(plotlyRef.current, {format: 'svg', filename: 'plot_' + contentID, scale: 1});
+            }
+          },
+          {
+            name: 'Download metadata',
+            icon: Plotly.Icons.disk,
+            click: function() {
+              const metadata = props;
+              // download JSON
+              const blob = new Blob([JSON.stringify(metadata, null, 2)], {type: 'application/json'});
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'metadata_' + contentID + '.json';
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+              URL.revokeObjectURL(url);
+            }
+          },
+        ],
+      }
+    );
   };
 
   // check if data can be smoothed
