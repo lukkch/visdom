@@ -175,7 +175,24 @@ var PlotPane = (props) => {
             name: 'Download metadata',
             icon: Plotly.Icons.disk,
             click: function() {
-              const metadata = props;
+              const {
+                id,
+                envID,
+                contentID,
+                title,
+                type,
+                version,
+                content,
+              } = props;
+              const metadata = {
+                id,
+                envID,
+                contentID,
+                title,
+                type,
+                version,
+                content,
+              };
               // download JSON
               const blob = new Blob(
                 [JSON.stringify(metadata, null, 2)],
