@@ -145,7 +145,7 @@ var PlotPane = (props) => {
         modeBarButtonsToAdd: [
           {
             name: 'Download plot as PNG',
-            icon: Plotly.Icons["camera-retro"],
+            icon: Plotly.Icons['camera-retro'],
             click: function() {
               Plotly.downloadImage(
                 plotlyRef.current,
@@ -177,7 +177,10 @@ var PlotPane = (props) => {
             click: function() {
               const metadata = props;
               // download JSON
-              const blob = new Blob([JSON.stringify(metadata, null, 2)], {type: 'application/json'});
+              const blob = new Blob(
+                [JSON.stringify(metadata, null, 2)],
+                { type: 'application/json' }
+              );
               const url = URL.createObjectURL(blob);
               const a = document.createElement('a');
               a.href = url;
